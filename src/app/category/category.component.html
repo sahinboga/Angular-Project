@@ -1,0 +1,10 @@
+<div class="chose-category">
+    <select class="chosen-select" placeholder="select your beverage">
+        <option class="kategori">Kategori</option>
+        <option>Tümü</option>
+        <option *ngFor="let category of categories">
+            {{category.description}}
+        </option>
+
+    </select>
+</div>

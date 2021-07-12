@@ -1,0 +1,49 @@
+<!-- <category [(ngModel)]="code" (change)="Filter()"></category> -->
+<div class="chose-category">
+    <select class="chosen-select" [(ngModel)]="code" (change)="SearchFilter()">
+
+        <option value="allCategory">Tümü</option>
+        <option *ngFor="let category of categories" [value]="category.code">
+            {{category.description}}
+        </option>
+
+    </select>
+</div>
+<div class="m-input">
+    <input type="text" id="fname" name="headline" [(ngModel)]="headline" (ngModelChange)="SearchFilter()"
+        placeholder="Haber başlıklarında ara">
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th style="cursor: pointer;" (click)="sort('date')">Saat
+                    <span style="font-size: 20px;" *ngIf="key == 'date' && !reverse">&#8595;</span>
+                    <span style="font-size: 20px;" *ngIf="key == 'date' && reverse">&#8593;</span>
+                </th>
+                <th>Başlık</th>
+                <th>Kategori</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let newHeader of newHeaders | orderBy:key:reverse">
+                <td style="text-align: center;">
+                    {{newHeader.date|date: 'dd'}}/{{newHeader.date|date: 'MM'}}/{{newHeader.date|date:'yyyy'}}
+                </td>
+                <td style="text-align: center;">
+                    {{newHeader.date|date: 'h:mm '}}
+                </td>
+                <td class="header-hover " (click)="ReadLS(newHeader.id)" [ngClass]="{
+                    'readHead': getItems(newHeader.id)
+                  }">
+                    {{newHeader.headline}}
+                </td>
+                <td>{{newHeader.categoryName}}</td>
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>

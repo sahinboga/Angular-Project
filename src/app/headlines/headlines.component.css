@@ -1,0 +1,59 @@
+.container{
+    margin: 20px;
+}
+
+  td,th{
+      height: 50px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+  }
+  th{
+      padding: 10px;
+  }
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+.header-hover:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .m-input{
+      margin: 20px;
+  }
+
+  .chose-category{
+    margin: 20px;
+    
+ }
+ 
+ 
+ .chosen-select{
+     width: 100%;
+     padding: 12px 20px;
+     margin: 8px 0;
+     display: inline-block;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     box-sizing: border-box;
+ }
+ 
+
+
+ .readHead{
+    text-decoration: line-through;
+    color:#A9A9A9;
+ }
