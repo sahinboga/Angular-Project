@@ -1,0 +1,7 @@
+.example-button-row{
+    display: flex;
+    justify-content: center;
+}
+.example-button-row button{
+    margin: 10px;
+}

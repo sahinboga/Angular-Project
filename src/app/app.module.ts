@@ -12,9 +12,11 @@ import { CategoryComponent } from './category/category.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { DetailComponent } from './detail/detail.component';
+import { GoogleNewsComponent } from './google-news/google-news.component';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { DetailComponent } from './detail/detail.component';
     HeadlinesComponent,
     CategoryComponent,
     DetailComponent,
+    GoogleNewsComponent,
 
   ],
   imports: [
@@ -32,6 +35,7 @@ import { DetailComponent } from './detail/detail.component';
     BrowserAnimationsModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatButtonModule,
     FormsModule,
     Ng2OrderModule,
 
