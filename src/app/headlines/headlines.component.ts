@@ -74,10 +74,10 @@ export class HeadlinesComponent {
   code: any;
   // Searching and filtering
   SearchFilter() {
-    console.log(this.code)
+
     this.newHeaders = this.baseNewHeaders.filter(res => {
       return (this.headline == undefined || res.headline.toLocaleLowerCase().match(this.headline.toLocaleLowerCase())) &&
-        (this.code === "allCategory" || res.category === this.code);
+        (this.code === "allCategory" || res.category === this.code || this.code == undefined);
     })
 
   }
