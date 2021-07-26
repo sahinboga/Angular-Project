@@ -1,21 +1,41 @@
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { GoogleNew } from './../models/googleNew';
-import { Component, OnInit } from '@angular/core';
+import { GoogleNew, IRssItem } from './../models/googleNew';
+import { Component, OnInit, Inject } from '@angular/core';
 import * as xml2js from "xml2js";
 import { Parser } from 'xml2js';
+import { MatTableDataSource } from '@angular/material/table';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
+
 
 @Component({
   selector: 'google-news',
   templateUrl: './google-news.component.html',
-  styleUrls: ['./google-news.component.css']
+  styleUrls: ['./google-news.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class GoogleNewsComponent implements OnInit {
-  rssData?: GoogleNew;
-  constructor(private http: HttpClient) { }
+
+
+export class GoogleNewsComponent {
+  rssData: GoogleNew | undefined;
+  dataSource: MatTableDataSource<IRssItem>
+  displayedColumns: string[] = ['title'];
+
+  constructor(private http: HttpClient, public dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource();
+  }
+
 
   ngOnInit() {
 
-
+    this.GetRssFeedData();
 
 
   }
@@ -28,11 +48,45 @@ export class GoogleNewsComponent implements OnInit {
       .subscribe(data => {
         let parseString = xml2js.parseString;
         parseString(data, (err, result: GoogleNew) => {
+
           this.rssData = result;
-          console.log(result)
+          var news = result.rss.channel[0].item;
+          this.dataSource = new MatTableDataSource(news)
+          console.log(this.dataSource)
         });
       })
-    //console.log(this.rssData)
+  }
+  searchTitle(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
+  }
+  DisplayDescription(item: IRssItem) {
+
+    console.log(item.enclosure[0])
+    const dialogRef = this.dialog.open(GoogleNewsDetail, {
+      width: '500px',
+      height: '400px',
+      data: {
+        title: item.title,
+        description: item.description,
+        link: item.link
+      }
+    });
   }
 
+
+}
+@Component({
+  selector: 'google-news-detail',
+  templateUrl: 'google-news-detail.html',
+})
+export class GoogleNewsDetail {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: GoogleNewsDetailData) { }
+}
+
+export interface GoogleNewsDetailData {
+  title: string;
+  description: string;
+  link: string;
 }

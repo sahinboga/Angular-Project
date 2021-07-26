@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { DetailComponent } from './detail/detail.component';
@@ -35,7 +37,9 @@ import { GoogleNewsComponent } from './google-news/google-news.component';
     BrowserAnimationsModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatTableModule,
     MatButtonModule,
+    MatInputModule,
     FormsModule,
     Ng2OrderModule,
 

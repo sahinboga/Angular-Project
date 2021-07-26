@@ -15,6 +15,6 @@ export interface IRssItem {
     description: string;
     guid: any;
     link: string;
-    pubDate: Date;
+    enclosure: any;
     title: string;
 }
