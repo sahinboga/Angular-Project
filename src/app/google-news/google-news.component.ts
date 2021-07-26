@@ -44,7 +44,7 @@ export class GoogleNewsComponent {
       observe: "body",
       responseType: "text"
     };
-    this.http.get<any>("http://www.trt.net.tr/rss/ekonomi.rss", requestOptions)
+    this.http.get<any>("https://www.trt.net.tr/rss/ekonomi.rss", requestOptions)
       .subscribe(data => {
         let parseString = xml2js.parseString;
         parseString(data, (err, result: GoogleNew) => {
