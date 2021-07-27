@@ -16,6 +16,10 @@ table{
  padding: auto;
 }
 
+.title-hover:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
 .readHead{
   text-decoration: line-through;
   color:#A9A9A9;
