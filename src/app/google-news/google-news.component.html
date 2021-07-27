@@ -9,7 +9,10 @@
 
         <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef> Başlık </th>
-            <td mat-cell *matCellDef="let o " (click)="DisplayDescription(o)"> {{o.title}}
+            <td mat-cell *matCellDef="let o " (click)="DisplayDescription(o)" [ngClass]="{
+                'readHead': getItems(o)
+              }" style="cursor: pointer;">
+                {{o.title}}
 
             </td>
         </ng-container>

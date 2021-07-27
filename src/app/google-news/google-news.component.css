@@ -15,16 +15,8 @@ table{
  margin-left: 200px;
  padding: auto;
 }
-input[type=text] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
 
-.m-input{
-    margin: 20px;
+.readHead{
+  text-decoration: line-through;
+  color:#A9A9A9;
 }

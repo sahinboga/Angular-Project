@@ -6,7 +6,7 @@ import { GoogleNewsComponent } from './google-news/google-news.component';
 const routes: Routes = [
   { path: '', component: HeadlinesComponent },
   { path: 'matriksnews', component: HeadlinesComponent },
-  { path: 'googlenews', component: GoogleNewsComponent }
+  { path: 'trtnews', component: GoogleNewsComponent }
 ];
 
 @NgModule({

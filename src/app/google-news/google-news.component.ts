@@ -62,7 +62,7 @@ export class GoogleNewsComponent {
   }
   DisplayDescription(item: IRssItem) {
 
-    console.log(item.enclosure[0])
+    console.log(localStorage.setItem(item.title, "true"))
     const dialogRef = this.dialog.open(GoogleNewsDetail, {
       width: '500px',
       height: '400px',
@@ -73,7 +73,10 @@ export class GoogleNewsComponent {
       }
     });
   }
-
+  getItems(item: IRssItem) {
+    let local = localStorage.getItem(item.title)
+    return local?.toLocaleLowerCase() == "true"
+  }
 
 }
 @Component({
