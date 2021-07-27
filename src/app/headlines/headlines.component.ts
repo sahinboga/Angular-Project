@@ -1,15 +1,14 @@
 
 import { DetailComponent } from './../detail/detail.component';
-import { Detail } from './../models/detail';
 import { DetailService } from './../detail.service';
 import { NewHeaderService } from './../new-header.service';
 import { Category } from './../models/category';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Pipe } from '@angular/core';
 import { CategoryService } from '../category.service';
 import { NewHeader } from '../models/newHeader';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as marked from 'marked';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { forkJoin } from 'rxjs';
 
@@ -26,7 +25,8 @@ export class HeadlinesComponent {
   baseNewHeaders: NewHeader[] = [];
   detail: {} = {};
 
-  constructor(private headerData: NewHeaderService, private categoryData: CategoryService, private detailData: DetailService, public dialog: MatDialog) {
+  constructor(private headerData: NewHeaderService, private categoryData: CategoryService,
+    private detailData: DetailService, public dialog: MatDialog, public domSanitizer: DomSanitizer) {
 
 
   }
@@ -96,11 +96,12 @@ export class HeadlinesComponent {
 
     this.detailData.getDetail(id).subscribe(resdetail => {
       this.detail = resdetail;
-      let content = resdetail.content;
+      let content = marked(resdetail.content);
+      let safeContent = this.domSanitizer.bypassSecurityTrustHtml(content);
       const dialogRef = this.dialog.open(DetailComponent, {
         width: '700px',
         height: '500px',
-        data: { headline: this.newHeaders.find(x => x.id == id)?.headline, content: marked(content != undefined ? content : "") }
+        data: { headline: this.newHeaders.find(x => x.id == id)?.headline, content: safeContent }
       });
 
     })

@@ -21,6 +21,8 @@ import { DetailComponent } from './detail/detail.component';
 import { GoogleNewsComponent } from './google-news/google-news.component';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
