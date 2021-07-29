@@ -9,9 +9,12 @@ import { NewHeader } from '../models/newHeader';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as marked from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 import { forkJoin } from 'rxjs';
 
+declare let gtag: Function;
 @Component({
   selector: 'headlines',
   templateUrl: './headlines.component.html',
@@ -26,10 +29,19 @@ export class HeadlinesComponent {
   detail: {} = {};
 
   constructor(private headerData: NewHeaderService, private categoryData: CategoryService,
-    private detailData: DetailService, public dialog: MatDialog, public domSanitizer: DomSanitizer) {
-
-
+    private detailData: DetailService, public dialog: MatDialog, public domSanitizer: DomSanitizer,
+    router: Router) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'xx-xxxxx-xx',
+          {
+            'page_path': event.urlAfterRedirects
+          }
+        );
+      }
+    })
   }
+
 
 
   ngOnInit() {
