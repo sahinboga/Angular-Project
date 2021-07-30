@@ -9,12 +9,11 @@ import { NewHeader } from '../models/newHeader';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as marked from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+
 
 import { forkJoin } from 'rxjs';
+declare var gtag: any;
 
-declare let gtag: Function;
 @Component({
   selector: 'headlines',
   templateUrl: './headlines.component.html',
@@ -29,17 +28,8 @@ export class HeadlinesComponent {
   detail: {} = {};
 
   constructor(private headerData: NewHeaderService, private categoryData: CategoryService,
-    private detailData: DetailService, public dialog: MatDialog, public domSanitizer: DomSanitizer,
-    router: Router) {
-    router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        gtag('config', 'xx-xxxxx-xx',
-          {
-            'page_path': event.urlAfterRedirects
-          }
-        );
-      }
-    })
+    private detailData: DetailService, public dialog: MatDialog, public domSanitizer: DomSanitizer) {
+
   }
 
 
@@ -115,6 +105,11 @@ export class HeadlinesComponent {
         height: '500px',
         data: { headline: this.newHeaders.find(x => x.id == id)?.headline, content: safeContent }
       });
+      gtag('event', 'READ_LS_ACTION', {
+        'event_category': 'READ_LS_ACTION_EVENT_CATEGORY',
+        'event_label': 'READ_LS_ACTION_EVENT_LABEL',
+        'value': 'READ_LS_ACTION_EVENT_VALUE'
+      })
 
     })
 

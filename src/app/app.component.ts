@@ -1,8 +1,10 @@
 
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 
-declare var gtag: any;
+declare let gtag: Function;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,15 +12,16 @@ declare var gtag: any;
 })
 export class AppComponent {
   title = 'Angula-Project';
-  // constructor(public router: Router) {
-  //   const navEndevents = router.events.pipe(
-  //     filter(event => event instanceof NavigationEnd)
-  //   );
-  //   navEndevents.subscribe((event: NavigationEnd) => {
-  //     gtag('config', 'G-7XJ7FEG9FZ', {
-  //       'page_path': event.urlAfterRedirects
-  //     })
-  //   })
+  constructor(public router: Router) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'G-7XJ7FEG9FZ',
+          {
+            'page_path': event.urlAfterRedirects
+          }
+        );
+      }
+    })
 
-  // }
+  }
 }
