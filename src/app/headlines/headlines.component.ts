@@ -93,22 +93,45 @@ export class HeadlinesComponent {
     console.log(key2)
   }
 
-  ReadLS(id: any) {
-    localStorage.setItem(id, "true");
+  // ReadLS(id: any) {
+  //   localStorage.setItem(id, "true");
 
-    this.detailData.getDetail(id).subscribe(resdetail => {
+  //   this.detailData.getDetail(id).subscribe(resdetail => {
+  //     this.detail = resdetail;
+  //     let content = marked(resdetail.content);
+  //     let safeContent = this.domSanitizer.bypassSecurityTrustHtml(content);
+  //     const dialogRef = this.dialog.open(DetailComponent, {
+  //       width: '700px',
+  //       height: '500px',
+  //       data: { headline: this.newHeaders.find(x => x.id == id)?.headline, content: safeContent }
+  //     });
+  //     gtag('event', resdetail.content, {
+  //       'event_category': 'READ_LS_ACTION_EVENT_CATEGORY',
+  //       'event_label': 'READ_LS_ACTION_EVENT_LABEL',
+  //       'value': 'READ_LS_ACTION_EVENT_VALUE'
+  //     })
+
+  //   })
+
+
+
+  // }
+  ReadLS(newHeader: NewHeader): void {
+    localStorage.setItem(newHeader.id.toString(), "true");
+
+    this.detailData.getDetail(newHeader.id).subscribe(resdetail => {
       this.detail = resdetail;
       let content = marked(resdetail.content);
       let safeContent = this.domSanitizer.bypassSecurityTrustHtml(content);
       const dialogRef = this.dialog.open(DetailComponent, {
         width: '700px',
         height: '500px',
-        data: { headline: this.newHeaders.find(x => x.id == id)?.headline, content: safeContent }
+        data: { headline: this.newHeaders.find(x => x.category == newHeader.category)?.headline, content: safeContent }
       });
-      gtag('event', 'READ_LS_ACTION', {
-        'event_category': 'READ_LS_ACTION_EVENT_CATEGORY',
-        'event_label': 'READ_LS_ACTION_EVENT_LABEL',
-        'value': 'READ_LS_ACTION_EVENT_VALUE'
+      gtag('event', newHeader.category, {
+        'event_category': newHeader.category,
+        'event_label': newHeader.categoryName,
+        'value': newHeader.categoryName
       })
 
     })
@@ -117,7 +140,7 @@ export class HeadlinesComponent {
 
   }
 
-  getItems(id: any) {
+  getItems(id: any): boolean {
     let local = localStorage.getItem(id)
     return local?.toLocaleLowerCase() == "true"
   }

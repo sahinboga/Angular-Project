@@ -34,7 +34,7 @@
                 <td style="text-align: center;">
                     {{newHeader.date|date: 'h:mm '}}
                 </td>
-                <td class="header-hover " (click)="ReadLS(newHeader.id)" [ngClass]="{
+                <td class="header-hover " (click)="ReadLS(newHeader)" [ngClass]="{
                     'readHead': getItems(newHeader.id)
                   }">
                     {{newHeader.headline}}
