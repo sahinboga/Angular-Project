@@ -1,8 +1,5 @@
-
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,9 +16,16 @@ import { FormsModule } from '@angular/forms';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { DetailComponent } from './detail/detail.component';
 import { GoogleNewsComponent } from './google-news/google-news.component';
+import Bugsnag from '@bugsnag/js'
+import { BugsnagErrorHandler } from '@bugsnag/plugin-angular'
 
+// configure Bugsnag ASAP, before any other imports
+Bugsnag.start({ apiKey: '49263ee37045da9da5ba7e70913c7b26' })
 
-
+// create a factory which will return the bugsnag error handler
+export function errorHandlerFactory() {
+  return new BugsnagErrorHandler();
+}
 
 @NgModule({
   declarations: [
@@ -30,7 +34,6 @@ import { GoogleNewsComponent } from './google-news/google-news.component';
     CategoryComponent,
     DetailComponent,
     GoogleNewsComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -44,10 +47,10 @@ import { GoogleNewsComponent } from './google-news/google-news.component';
     MatInputModule,
     FormsModule,
     Ng2OrderModule,
-
-
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{ provide: ErrorHandler, useFactory: errorHandlerFactory }],
+  bootstrap: [AppComponent],
 })
+
+
 export class AppModule { }

@@ -1,3 +1,4 @@
+import Bugsnag from '@bugsnag/js';
 
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -12,7 +13,9 @@ declare let gtag: Function;
 })
 export class AppComponent {
   title = 'Angula-Project';
+
   constructor(public router: Router) {
+
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         gtag('config', 'G-7XJ7FEG9FZ',
@@ -22,6 +25,7 @@ export class AppComponent {
         );
       }
     })
-
+    Bugsnag.notify(new Error('Test error'));
   }
+
 }
